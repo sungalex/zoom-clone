@@ -18,7 +18,8 @@
     "@babel/core": "^7.17.9",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "ws": "^8.5.0"
   },
   "devDependencies": {
     "express": "^4.17.3",
