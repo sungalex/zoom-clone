@@ -19,7 +19,7 @@ function showRoom() {
   welcome.hidden = true;
   room.hidden = false;
   const h3 = room.querySelector("h3");
-  h3.innerText = `Room: ${socket["roomName"]}`;
+  h3.innerText = `Room: ${socket.roomName}`;
 }
 
 function addMessage(message) {
@@ -52,7 +52,7 @@ function handleMessageSubmit(event) {
   const input = roomFrom.querySelector("input");
   const value = input.value;
   const addMsg = () => addMessage(`me: ${value}`);
-  socket.emit("new_message", input.value, socket["roomName"], addMsg);
+  socket.emit("new_message", input.value, socket.roomName, addMsg);
   input.value = "";
 }
 

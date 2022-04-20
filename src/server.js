@@ -25,15 +25,15 @@ wsServer.on("connection", (socket) => {
   socket.on("enter_room", (roomName, done) => {
     socket.join(roomName);
     done();
-    socket.to(roomName).emit("welcome", socket["nickName"]);
+    socket.to(roomName).emit("welcome", socket.nickName);
   });
   socket.on("new_message", (message, roomName, done) => {
-    socket.to(roomName).emit("new_message", socket["nickName"], message);
+    socket.to(roomName).emit("new_message", socket.nickName, message);
     done();
   });
   socket.on("disconnecting", () => {
     socket.rooms.forEach((room) =>
-      socket.to(room).emit("bye", socket["nickName"])
+      socket.to(room).emit("bye", socket.nickName)
     );
   });
 });
