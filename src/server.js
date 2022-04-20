@@ -1,6 +1,5 @@
 import express from "express";
-import WebSocket from "ws";
-
+import SocketIO from "socket.io";
 const app = express();
 
 app.set("view engine", "pug");
@@ -11,10 +10,14 @@ app.get("/*", (_, res) => res.redirect("/"));
 
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
 
-const server = app.listen(3000, handleListen);
-const wss = new WebSocket.Server({ server });
+const httpServer = app.listen(3000, handleListen);
+const wsServer = SocketIO(httpServer);
 
-const sockets = [];
+wsServer.on("connection", (socket) => {
+  console.log(socket);
+});
+
+/* const sockets = [];
 
 wss.on("connection", (socket) => {
   sockets.push(socket);
@@ -33,4 +36,4 @@ wss.on("connection", (socket) => {
         socket["nickname"] = message.payload;
     }
   });
-});
+}); */
