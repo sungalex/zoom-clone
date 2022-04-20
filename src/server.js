@@ -14,10 +14,10 @@ const httpServer = app.listen(3000, handleListen);
 const wsServer = SocketIO(httpServer);
 
 wsServer.on("connection", (socket) => {
-  socket.on("enter_room", (msg, done) => {
-    console.log(msg);
+  socket.on("enter_room", (roomeName, done) => {
+    console.log(roomeName);
     setTimeout(() => {
-      done();
+      done("hello from the backend");
     }, 10000);
   });
 });
