@@ -14,9 +14,11 @@ Zoom Clone with NodeJS and SocketIO
 
 - Extra points: Show a list of all the `rooms` currently on the server.
 
+- codsandbox.io : https://codesandbox.io/s/socketio-m9b3if
+
 ## Admin UI
 
-- [https://socket.io/docs/v4/admin-ui/](https://socket.io/docs/v4/admin-ui/)
+- Documents: https://socket.io/docs/v4/admin-ui/
 
 - Link to the hosted version: [https://admin.socket.io/](https://admin.socket.io/)
   - Server URL setup: http://localhost:3000/admin
