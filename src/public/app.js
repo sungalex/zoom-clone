@@ -67,10 +67,10 @@ function displyRooms(publicRooms) {
   });
 }
 
-function displayNickName(nickName) {
+function displayNickName(nickname) {
   const h3 = nick.querySelector("h3");
   const changeNick = nick.querySelector("span");
-  h3.innerText = `Nickname: ${nickName}`;
+  h3.innerText = `Nickname: ${nickname}`;
   h3.style.display = "inline";
   h3.style.paddingRight = "10px";
   changeNick.innerText = "Change Nick";
@@ -85,8 +85,8 @@ function handleNickSubmit(event) {
   event.preventDefault();
   const input = nickForm.querySelector("input");
   displayNickName(input.value);
-  socket["nickName"] = input.value;
-  socket.emit("nickname", input.value, showWelcome);
+  socket["nickname"] = input.value;
+  socket.emit("nickname", socket.roomName, input.value, showWelcome);
   input.value = "";
 }
 
@@ -111,18 +111,18 @@ nickForm.addEventListener("submit", handleNickSubmit);
 welcomeForm.addEventListener("submit", handleRoomSubmit);
 roomFrom.addEventListener("submit", handleMessageSubmit);
 
-socket.on("welcome", (nickName) => {
-  addMessage(`${nickName} joined!`);
+socket.on("welcome", (nickname) => {
+  addMessage(`${nickname} joined!`);
 });
 
-socket.on("new_message", (nickName, message) => {
-  addMessage(`${nickName}: ${message}`);
+socket.on("new_message", (nickname, message) => {
+  addMessage(`${nickname}: ${message}`);
 });
 
-socket.on("bye", (nickName, roomCount) => {
+socket.on("bye", (nickname, roomCount) => {
   socket["roomCount"] = roomCount;
   displayRoomName();
-  addMessage(`${nickName} left ㅠㅠ`);
+  addMessage(`${nickname} left ㅠㅠ`);
 });
 
 socket.on("room_changing", (publicRooms, roomName, roomCount) => {
@@ -135,4 +135,8 @@ socket.on("room_changing", (publicRooms, roomName, roomCount) => {
 
 socket.on("room_changed", (publicRooms) => {
   displyRooms(publicRooms);
+});
+
+socket.on("change_nick", (oldNickname, newNickname) => {
+  addMessage(`${oldNickname}' nickname is changed to ${newNickname}`);
 });

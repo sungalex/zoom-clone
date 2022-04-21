@@ -33,18 +33,22 @@ function countRoom(room) {
 }
 
 wsServer.on("connection", (socket) => {
-  socket["nickName"] = "Anonymous";
+  socket["nickname"] = "Anonymous";
   socket.onAny((event) => {
     console.log(`Socket event: ${event}`);
   });
-  socket.on("nickname", (nickName, done) => {
-    socket["nickName"] = nickName;
+  socket.on("nickname", (room, nickname, done) => {
+    const oldNickname = socket.nickname;
+    socket["nickname"] = nickname;
     done();
+    if (oldNickname !== socket.nickname) {
+      socket.to(room).emit("change_nick", oldNickname, socket.nickname);
+    }
   });
   socket.on("enter_room", (room, done) => {
     socket.join(room);
     done();
-    socket.to(room).emit("welcome", socket.nickName);
+    socket.to(room).emit("welcome", socket.nickname);
     wsServer.sockets.emit(
       "room_changing",
       publicRooms(),
@@ -62,12 +66,12 @@ wsServer.on("connection", (socket) => {
     );
   });
   socket.on("new_message", (message, room, done) => {
-    socket.to(room).emit("new_message", socket.nickName, message);
+    socket.to(room).emit("new_message", socket.nickname, message);
     done();
   });
   socket.on("disconnecting", () => {
     socket.rooms.forEach((room) =>
-      socket.to(room).emit("bye", socket.nickName, countRoom(room) - 1)
+      socket.to(room).emit("bye", socket.nickname, countRoom(room) - 1)
     );
   });
   socket.on("disconnect", () => {
