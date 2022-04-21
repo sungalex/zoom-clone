@@ -23,7 +23,7 @@ function displayRoomName() {
 }
 
 function applySpanStyle(span) {
-  span.style.backgroundColor = "#feca57";
+  span.style.backgroundColor = "#fbc531";
   span.style.padding = "5px 10px";
   span.style.cursor = "pointer";
   span.style.borderRadius = "5px";
@@ -36,8 +36,7 @@ function displayLeaveButton() {
   leaveRoom.addEventListener("click", () => {
     room.hidden = true;
     welcomeForm.hidden = false;
-    // console.log(socket);
-    // socket.emit("leave-room", socket.roomName, socket.id);
+    socket.emit("leave_room", socket.roomName);
   });
   welcome.style.marginBottom = "20px";
 }
@@ -54,6 +53,8 @@ function addMessage(message) {
   const li = document.createElement("li");
   li.innerText = message;
   ul.appendChild(li);
+  ul.style.maxHeight = "30vh";
+  ul.style.overflow = "auto";
 }
 
 function displyRooms(publicRooms) {
