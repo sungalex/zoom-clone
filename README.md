@@ -1,16 +1,6 @@
 # Zoom Clone (Noom)
 
-Zoom Clone with NodeJS, Websocket and SocketIO
-
-## Code Challenge - Day1
-
-- Implement a real time chat using **WebSocket**.
-
-- Put the backend code on `src/server.js` and the frontend code on `src/public/app.js`.
-
-- Allow users to change nickname.
-
-- Display messages sents by other users.
+Zoom Clone with NodeJS and SocketIO
 
 ## Code Challenge - Day2
 
