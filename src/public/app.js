@@ -37,6 +37,7 @@ function displayLeaveButton() {
     room.hidden = true;
     welcomeForm.hidden = false;
     socket.emit("leave_room", socket.roomName);
+    socket["roomName"] = "";
   });
   welcome.style.marginBottom = "20px";
 }
@@ -63,6 +64,17 @@ function displyRooms(publicRooms) {
   publicRooms.forEach((room) => {
     const li = document.createElement("li");
     li.innerText = room;
+    li.style.cursor = "pointer";
+    li.style.textDecorationLine = "underline";
+    li.addEventListener("click", (event) => {
+      const newRoom = event.target.innerText;
+      if (newRoom === socket.roomName) {
+        return;
+      }
+      socket.emit("leave_room", socket.roomName);
+      socket["roomName"] = newRoom;
+      socket.emit("enter_room", newRoom, showRoom);
+    });
     ul.appendChild(li);
   });
 }
