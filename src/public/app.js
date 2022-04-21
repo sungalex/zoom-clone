@@ -17,13 +17,36 @@ function showWelcome() {
 
 function displayRoomName() {
   const h3 = room.querySelector("h3");
+  h3.style.display = "inline";
+  h3.style.paddingRight = "10px";
   h3.innerText = `Room: ${socket.roomName} (${socket.roomCount})`;
+}
+
+function applySpanStyle(span) {
+  span.style.backgroundColor = "#feca57";
+  span.style.padding = "5px 10px";
+  span.style.cursor = "pointer";
+  span.style.borderRadius = "5px";
+}
+
+function displayLeaveButton() {
+  const leaveRoom = room.querySelector("span");
+  leaveRoom.innerText = "Leave Room";
+  applySpanStyle(leaveRoom);
+  leaveRoom.addEventListener("click", () => {
+    room.hidden = true;
+    welcomeForm.hidden = false;
+    // console.log(socket);
+    // socket.emit("leave-room", socket.roomName, socket.id);
+  });
+  welcome.style.marginBottom = "20px";
 }
 
 function showRoom() {
   welcomeForm.hidden = true;
   room.hidden = false;
   displayRoomName();
+  displayLeaveButton();
 }
 
 function addMessage(message) {
@@ -45,16 +68,13 @@ function displyRooms(publicRooms) {
 
 function displayNickName(nickName) {
   const h3 = nick.querySelector("h3");
-  const span = nick.querySelector("span");
-  span.innerText = "Change";
+  const changeNick = nick.querySelector("span");
   h3.innerText = `Nickname: ${nickName}`;
   h3.style.display = "inline";
   h3.style.paddingRight = "10px";
-  span.style.backgroundColor = "#74b9ff";
-  span.style.padding = "5px 10px";
-  span.style.cursor = "pointer";
-  span.style.borderRadius = "5px";
-  span.addEventListener("click", () => {
+  changeNick.innerText = "Change Nick";
+  applySpanStyle(changeNick);
+  changeNick.addEventListener("click", () => {
     nickForm.hidden = false;
   });
   nick.style.marginBottom = "20px";
