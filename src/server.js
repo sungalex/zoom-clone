@@ -64,6 +64,7 @@ wsServer.on("connection", (socket) => {
       room,
       countRoom(room)
     );
+    socket.to(room).emit("bye", socket.nickname, countRoom(room) - 1);
   });
   socket.on("new_message", (message, room, done) => {
     socket.to(room).emit("new_message", socket.nickname, message);
