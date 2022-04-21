@@ -43,11 +43,27 @@ function displyRooms(publicRooms) {
   });
 }
 
+function displayNickName(nickName) {
+  const h3 = nick.querySelector("h3");
+  const span = nick.querySelector("span");
+  span.innerText = "Change";
+  h3.innerText = `Nickname: ${nickName}`;
+  h3.style.display = "inline";
+  h3.style.paddingRight = "10px";
+  span.style.backgroundColor = "#74b9ff";
+  span.style.padding = "5px 10px";
+  span.style.cursor = "pointer";
+  span.style.borderRadius = "5px";
+  span.addEventListener("click", () => {
+    nickForm.hidden = false;
+  });
+  nick.style.marginBottom = "20px";
+}
+
 function handleNickSubmit(event) {
   event.preventDefault();
   const input = nickForm.querySelector("input");
-  const h3 = nick.querySelector("h3");
-  h3.innerText = `Nickname: ${input.value}`;
+  displayNickName(input.value);
   socket["nickName"] = input.value;
   socket.emit("nickname", input.value, showWelcome);
   input.value = "";
