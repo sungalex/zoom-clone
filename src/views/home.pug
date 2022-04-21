@@ -4,32 +4,15 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Noom - SocketIO
+        title Noom
         link(rel="stylesheet", href="https://unpkg.com/mvp.css")
     body 
         header 
-            h2 Noom - SocketIO
+            h2 Noom - Video Call
         main 
-            div#nick
-                div
-                    h3
-                    span
-                form
-                    input(type="text" placeholder="write nickname", required)
-                    button Store
-            div#welcome 
-                form
-                    input(type="text" placeholder="room name(create or join)", required)
-                    button Enter Room
-                h4 Open Rooms:
-                ul
-            div#room 
-                div
-                    h3 
-                    span
-                ul 
-                form
-                    input(type="text" placeholder="your message", required)
-                    button Send
+            div#myStream
+                video#myFace(autoplay, playsinline, muted, width="400", height="400")
+                button#mute Mute
+                button#camera Turn Camera Off            
         script(src="/socket.io/socket.io.js")
         script(src="/public/app.js")
