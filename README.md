@@ -23,3 +23,11 @@ Zoom Clone with NodeJS, Websocket and SocketIO
 - Put the backend code on `src/server.js` and the frontend code on `src/public/app.js`.
 
 - Extra points: Show a list of all the `rooms` currently on the server.
+
+## Admin UI
+
+- [https://socket.io/docs/v4/admin-ui/](https://socket.io/docs/v4/admin-ui/)
+
+- Link to the hosted version: [https://admin.socket.io/](https://admin.socket.io/)
+  - Server URL setup: http://localhost:3000/admin
+  - Nothing in Path field.
