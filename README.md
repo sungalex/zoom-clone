@@ -28,6 +28,8 @@ Zoom Clone with NodeJS, Websocket and SocketIO
 
 - codsandbox.io : https://codesandbox.io/s/socketio-m9b3if
 
+- Github Branch : [zoom-clone SocketIO branch](https://github.com/sungalex/zoom-clone/tree/SocketIO)
+
 ## Admin UI
 
 - Documents: https://socket.io/docs/v4/admin-ui/
