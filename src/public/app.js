@@ -16,7 +16,7 @@ function showWelcome() {
 }
 
 function showRoom() {
-  welcome.hidden = true;
+  welcomeForm.hidden = true;
   room.hidden = false;
   const h3 = room.querySelector("h3");
   h3.innerText = `Room: ${socket.roomName}`;
@@ -27,6 +27,16 @@ function addMessage(message) {
   const li = document.createElement("li");
   li.innerText = message;
   ul.appendChild(li);
+}
+
+function displyRooms(publicRooms) {
+  const ul = welcome.querySelector("ul");
+  ul.innerText = "";
+  publicRooms.forEach((room) => {
+    const li = document.createElement("li");
+    li.innerText = room;
+    ul.appendChild(li);
+  });
 }
 
 function handleNickSubmit(event) {
@@ -70,4 +80,8 @@ socket.on("new_message", (nickName, message) => {
 
 socket.on("bye", (nickName) => {
   addMessage(`${nickName} left ㅠㅠ`);
+});
+
+socket.on("room_change", (publicRooms) => {
+  displyRooms(publicRooms);
 });
