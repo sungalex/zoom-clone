@@ -15,11 +15,15 @@ function showWelcome() {
   welcome.hidden = false;
 }
 
+function displayRoomName() {
+  const h3 = room.querySelector("h3");
+  h3.innerText = `Room: ${socket.roomName} (${socket.roomCount})`;
+}
+
 function showRoom() {
   welcomeForm.hidden = true;
   room.hidden = false;
-  const h3 = room.querySelector("h3");
-  h3.innerText = `Room: ${socket.roomName}`;
+  displayRoomName();
 }
 
 function addMessage(message) {
@@ -78,10 +82,20 @@ socket.on("new_message", (nickName, message) => {
   addMessage(`${nickName}: ${message}`);
 });
 
-socket.on("bye", (nickName) => {
+socket.on("bye", (nickName, roomCount) => {
+  socket["roomCount"] = roomCount;
+  displayRoomName();
   addMessage(`${nickName} left ㅠㅠ`);
 });
 
-socket.on("room_change", (publicRooms) => {
+socket.on("room_changing", (publicRooms, roomName, roomCount) => {
+  if (roomName === socket.roomName) {
+    socket["roomCount"] = roomCount;
+    displayRoomName();
+  }
+  displyRooms(publicRooms);
+});
+
+socket.on("room_changed", (publicRooms) => {
   displyRooms(publicRooms);
 });
