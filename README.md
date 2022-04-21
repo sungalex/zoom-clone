@@ -12,6 +12,8 @@ Zoom Clone with NodeJS, Websocket and SocketIO
 
 - Display messages sents by other users.
 
+- codsandbox.io : https://codesandbox.io/s/websockets-chat-ur466n
+
 ## Code Challenge - Day2
 
 - Implement a real time chat using **SocketIO** with room support.
@@ -24,9 +26,11 @@ Zoom Clone with NodeJS, Websocket and SocketIO
 
 - Extra points: Show a list of all the `rooms` currently on the server.
 
+- codsandbox.io : https://codesandbox.io/s/socketio-m9b3if
+
 ## Admin UI
 
-- [https://socket.io/docs/v4/admin-ui/](https://socket.io/docs/v4/admin-ui/)
+- Documents: https://socket.io/docs/v4/admin-ui/
 
 - Link to the hosted version: [https://admin.socket.io/](https://admin.socket.io/)
   - Server URL setup: http://localhost:3000/admin
