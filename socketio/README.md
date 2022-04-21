@@ -1,18 +1,6 @@
 # Zoom Clone (Noom)
 
-Zoom Clone with NodeJS, Websocket and SocketIO
-
-## Code Challenge - Day1 : WebSocket
-
-- Implement a real time chat using **WebSocket**.
-
-- Put the backend code on `src/server.js` and the frontend code on `src/public/app.js`.
-
-- Allow users to change nickname.
-
-- Display messages sents by other users.
-
-- codsandbox.io : https://codesandbox.io/s/websockets-chat-ur466n
+Zoom Clone with NodeJS and SocketIO
 
 ## Code Challenge - Day2 : SocketIO
 
@@ -37,19 +25,3 @@ Zoom Clone with NodeJS, Websocket and SocketIO
 - Link to the hosted version: [https://admin.socket.io/](https://admin.socket.io/)
   - Server URL setup: http://localhost:3000/admin
   - Nothing in Path field.
-
-## Code Challenge - Day3 : Video Call with WebRTC
-
-- Implement a P2P Videocall with WebRTC.
-
-- Put the backend code on src/server.js and the frontend code on src/public/app.js.
-
-- Videocall Flow:
-
-  - User A should create a room.
-  - User B should join the room.
-  - Video call should start.
-  - 2 people max. allowed per room.
-  - Extra points: Implement a realtime chat using **Data Channels**.
-
-- codsandbox.io : https://codesandbox.io/s/webrtc-video-call-yf6qt0
