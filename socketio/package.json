@@ -1,0 +1,30 @@
+{
+  "name": "zoom-clone",
+  "version": "1.0.0",
+  "description": "Zoom Clone with NodeJS, Websocket and SocketIO",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "keywords": [
+    "Zoom",
+    "NodeJS",
+    "Websocket",
+    "SoketIO"
+  ],
+  "author": "Alex Lee",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.9",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "@socket.io/admin-ui": "^0.2.0",
+    "nodemon": "^2.0.15",
+    "socket.io": "^4.4.1",
+    "ws": "^8.5.0"
+  },
+  "devDependencies": {
+    "express": "^4.17.3",
+    "pug": "^3.0.2"
+  }
+}
