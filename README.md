@@ -1,6 +1,6 @@
 # Zoom Clone (Noom)
 
-Zoom Clone with NodeJS, Websocket and SocketIO
+Zoom Clone with NodeJS, Websocket, SocketIO and WebRTC
 
 ## Code Challenge - Day1 : WebSocket
 
@@ -51,5 +51,10 @@ Zoom Clone with NodeJS, Websocket and SocketIO
   - Video call should start.
   - 2 people max. allowed per room.
   - Extra points: Implement a realtime chat using **Data Channels**.
+
+- Optionals
+
+  - Improve the CSS.
+  - When a peer leaves the room, remove the stream.
 
 - codsandbox.io : https://codesandbox.io/s/webrtc-video-call-yf6qt0
