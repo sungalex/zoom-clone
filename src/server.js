@@ -25,7 +25,6 @@ wsServer.on("connection", (socket) => {
       done(true);
     } else {
       done(false);
-      console.log(countRoom(roomName));
     }
   });
   socket.on("offer", (offer, roomName) => {
