@@ -116,6 +116,7 @@ function displayRoomError(isCountOK) {
     messages.hidden = true;
     const errorMsg = document.createElement("h3");
     errorMsg.innerText = `${roomName} room member is already 2 people. select another room.`;
+    errorMsg.style.color = "red";
     welcome.appendChild(errorMsg);
   }
 }
