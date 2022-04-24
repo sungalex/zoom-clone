@@ -13,10 +13,20 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 const httpServer = app.listen(3000, handleListen);
 const wsServer = SocketIO(httpServer);
 
+function countRoom(room) {
+  return wsServer.sockets.adapter.rooms.get(room)?.size;
+}
+
 wsServer.on("connection", (socket) => {
-  socket.on("join_room", (roomName) => {
-    socket.join(roomName);
-    socket.to(roomName).emit("welcome");
+  socket.on("join_room", (roomName, done) => {
+    if (countRoom(roomName) === undefined || countRoom(roomName) < 2) {
+      socket.join(roomName);
+      socket.to(roomName).emit("welcome");
+      done(true);
+    } else {
+      done(false);
+      console.log(countRoom(roomName));
+    }
   });
   socket.on("offer", (offer, roomName) => {
     socket.to(roomName).emit("offer", offer);

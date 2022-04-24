@@ -11,6 +11,7 @@ const nickForm = nick.querySelector("form");
 const messages = document.getElementById("messages");
 const messagesFrom = messages.querySelector("form");
 
+call.hidden = true;
 nick.hidden = true;
 messages.hidden = true;
 
@@ -107,6 +108,18 @@ camerasSelect.addEventListener("input", handleCameraChange);
 const welcome = document.getElementById("welcome");
 const welcomeForm = welcome.querySelector("form");
 
+function displayRoomError(isCountOK) {
+  if (!isCountOK) {
+    welcome.hidden = false;
+    call.hidden = true;
+    nick.hidden = true;
+    messages.hidden = true;
+    const errorMsg = document.createElement("h3");
+    errorMsg.innerText = `${roomName} room member is already 2 people. select another room.`;
+    welcome.appendChild(errorMsg);
+  }
+}
+
 async function initCall() {
   welcome.hidden = true;
   call.hidden = false;
@@ -120,14 +133,14 @@ async function handleWelcomeSubmit(event) {
   event.preventDefault();
   const input = welcomeForm.querySelector("input");
   await initCall();
-  socket.emit("join_room", input.value);
+  socket.emit("join_room", input.value, displayRoomError);
   roomName = input.value;
   input.value = "";
 }
 
 welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 
-// Data Channel From
+// Data Channel Form
 
 function addMessage(msg) {
   const ul = messages.querySelector("ul");
