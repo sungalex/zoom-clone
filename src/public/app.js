@@ -111,6 +111,7 @@ async function initCall() {
   welcome.hidden = true;
   call.hidden = false;
   nick.hidden = false;
+  messages.hidden = false;
   await getMedia();
   makeConnection();
 }
@@ -150,7 +151,6 @@ function handleNickSubmit(event) {
   socket["nickname"] = input.value;
   input.value = "";
   nickForm.hidden = true;
-  messages.hidden = false;
 }
 
 function handleMessageSubmit(event) {
