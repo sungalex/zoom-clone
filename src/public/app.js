@@ -6,13 +6,10 @@ const cameraBtn = document.getElementById("camera");
 const camerasSelect = document.getElementById("cameras");
 const call = document.getElementById("call");
 
-const nick = document.getElementById("nick");
-const nickForm = nick.querySelector("form");
 const messages = document.getElementById("messages");
 const messagesFrom = messages.querySelector("form");
 
 call.hidden = true;
-nick.hidden = true;
 messages.hidden = true;
 
 let myStream;
@@ -112,8 +109,9 @@ function displayRoomError(isCountOK) {
   if (!isCountOK) {
     welcome.hidden = false;
     call.hidden = true;
-    nick.hidden = true;
     messages.hidden = true;
+    myPeerConnection.removeStream(myStream);
+    myStream = null;
     const errorMsg = document.createElement("h3");
     errorMsg.innerText = `${roomName} room member is already 2 people. select another room.`;
     errorMsg.style.color = "red";
@@ -124,7 +122,6 @@ function displayRoomError(isCountOK) {
 async function initCall() {
   welcome.hidden = true;
   call.hidden = false;
-  nick.hidden = false;
   messages.hidden = false;
   await getMedia();
   makeConnection();
@@ -143,47 +140,32 @@ welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 
 // Data Channel Form
 
-function addMessage(msg) {
+function addMessage(sender, msg) {
   const ul = messages.querySelector("ul");
   const li = document.createElement("li");
-  li.innerText = msg;
+  li.innerText = `${sender}: ${msg}`;
   ul.appendChild(li);
   ul.style.maxHeight = "30vh";
   ul.style.overflow = "auto";
 }
 
-function displayNickName(nickname) {
-  const h3 = nick.querySelector("h3");
-  h3.innerText = `Nickname: ${nickname}`;
-  nick.style.marginBottom = "20px";
-}
-
-function handleNickSubmit(event) {
-  event.preventDefault();
-  const input = nickForm.querySelector("input");
-  displayNickName(input.value);
-  socket["nickname"] = input.value;
-  input.value = "";
-  nickForm.hidden = true;
-}
-
 function handleMessageSubmit(event) {
   event.preventDefault();
   const input = messagesFrom.querySelector("input");
-  const value = input.value;
-  const addMsg = () => addMessage(`me: ${value}`);
-  socket.emit("new_message", input.value, roomName, socket.nickname, addMsg);
+  myDataChannel.send(input.value);
+  addMessage("My Msg", input.value);
   input.value = "";
 }
 
-nickForm.addEventListener("submit", handleNickSubmit);
 messagesFrom.addEventListener("submit", handleMessageSubmit);
 
 // Socket Code
 
 socket.on("welcome", async () => {
   myDataChannel = myPeerConnection.createDataChannel("chat");
-  myDataChannel.addEventListener("message", (event) => console.log(event.data));
+  myDataChannel.addEventListener("message", (event) =>
+    addMessage("Peer Msg", event.data)
+  );
   console.log("made data channel");
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
@@ -195,7 +177,7 @@ socket.on("offer", async (offer) => {
   myPeerConnection.addEventListener("datachannel", (event) => {
     myDataChannel = event.channel;
     myDataChannel.addEventListener("message", (event) =>
-      console.log(event.data)
+      addMessage("Peer Msg", event.data)
     );
   });
   console.log("received the offer");
@@ -216,9 +198,12 @@ socket.on("ice", (ice) => {
   myPeerConnection.addIceCandidate(ice);
 });
 
-socket.on("new_message", (nickname, msg) => {
-  addMessage(`${nickname}: ${msg}`);
-});
+// socket.on("bye", () => {
+//   myPeerConnection
+//     .getSenders()
+//     .forEach((sender) => myPeerConnection.removeTrack(sender));
+//   addMessage(`Peer left ㅠㅠ`);
+// });
 
 // RTC Code
 
