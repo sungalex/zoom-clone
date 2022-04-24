@@ -6,7 +6,13 @@ const cameraBtn = document.getElementById("camera");
 const camerasSelect = document.getElementById("cameras");
 const call = document.getElementById("call");
 
-call.hidden = true;
+const nick = document.getElementById("nick");
+const nickForm = nick.querySelector("form");
+const messages = document.getElementById("messages");
+const messagesFrom = messages.querySelector("form");
+
+nick.hidden = true;
+messages.hidden = true;
 
 let myStream;
 let muted = false;
@@ -104,6 +110,7 @@ const welcomeForm = welcome.querySelector("form");
 async function initCall() {
   welcome.hidden = true;
   call.hidden = false;
+  nick.hidden = false;
   await getMedia();
   makeConnection();
 }
@@ -118,6 +125,45 @@ async function handleWelcomeSubmit(event) {
 }
 
 welcomeForm.addEventListener("submit", handleWelcomeSubmit);
+
+// Data Channel From
+
+function addMessage(msg) {
+  const ul = messages.querySelector("ul");
+  const li = document.createElement("li");
+  li.innerText = msg;
+  ul.appendChild(li);
+  ul.style.maxHeight = "30vh";
+  ul.style.overflow = "auto";
+}
+
+function displayNickName(nickname) {
+  const h3 = nick.querySelector("h3");
+  h3.innerText = `Nickname: ${nickname}`;
+  nick.style.marginBottom = "20px";
+}
+
+function handleNickSubmit(event) {
+  event.preventDefault();
+  const input = nickForm.querySelector("input");
+  displayNickName(input.value);
+  socket["nickname"] = input.value;
+  input.value = "";
+  nickForm.hidden = true;
+  messages.hidden = false;
+}
+
+function handleMessageSubmit(event) {
+  event.preventDefault();
+  const input = messagesFrom.querySelector("input");
+  const value = input.value;
+  const addMsg = () => addMessage(`me: ${value}`);
+  socket.emit("new_message", input.value, roomName, socket.nickname, addMsg);
+  input.value = "";
+}
+
+nickForm.addEventListener("submit", handleNickSubmit);
+messagesFrom.addEventListener("submit", handleMessageSubmit);
 
 // Socket Code
 
@@ -156,6 +202,10 @@ socket.on("ice", (ice) => {
   myPeerConnection.addIceCandidate(ice);
 });
 
+socket.on("new_message", (nickname, msg) => {
+  addMessage(`${nickname}: ${msg}`);
+});
+
 // RTC Code
 
 function makeConnection() {
@@ -165,9 +215,9 @@ function makeConnection() {
         urls: [
           "stun:stun.l.google.com:19302",
           "stun:stun1.l.google.com:19302",
-          "stun:stun2.l.google.com:19302",
-          "stun:stun3.l.google.com:19302",
-          "stun:stun4.l.google.com:19302",
+          // "stun:stun2.l.google.com:19302",
+          // "stun:stun3.l.google.com:19302",
+          // "stun:stun4.l.google.com:19302",
         ],
       },
     ],

@@ -21,5 +21,18 @@ html(lang="en")
                     button#camera Turn Camera Off
                     select#cameras
                     video#peerFace(autoplay,playsinline, width="400", height="400")
+            div#nick
+                div
+                    h3
+                    span
+                form
+                    input(type="text" placeholder="write nickname", required)
+                    button Store
+            div#messages 
+                h3 
+                ul 
+                form
+                    input(type="text" placeholder="your message", required)
+                    button Send                    
         script(src="/socket.io/socket.io.js") 
         script(src="/public/app.js") 
