@@ -55,6 +55,6 @@ Zoom Clone with NodeJS, Websocket, SocketIO and WebRTC
 - Optionals
 
   - Improve the CSS.
-  - When a peer leaves the room, remove the stream.
+  - When a peer leaves the room, remove the stream. (TBD)
 
 - codsandbox.io : https://codesandbox.io/s/webrtc-video-call-yf6qt0
